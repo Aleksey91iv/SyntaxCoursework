@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 class Employee {
@@ -60,13 +61,17 @@ class Employee {
         return salary;
     }
 
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
     @Override
     public String toString() {
         return "----------------------------------------\n" +
                "id: " + id + "\n" +
                "ФИО: " + firstName + " " + lastName + " " + patronymic + "\n" +
                "Отдел №" + departamentId + "\n" +
-               "Зарплата: " + salary + "\n" +
+               "Зарплата: " +  new DecimalFormat("#0.00").format(salary) + "\n" +
                "----------------------------------------";
     }
 

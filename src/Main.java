@@ -20,16 +20,56 @@ public class Main {
 
             EmployeeBook employeeBook = new EmployeeBook();
 
-            employeeBook.addEmployee(dmitriy);
-            employeeBook.addEmployee(sergey);
-            employeeBook.addEmployee(vadim);
-            employeeBook.addEmployee(clavdiy);
-            employeeBook.addEmployee(antonina);
-            employeeBook.addEmployee(gadya);
-            employeeBook.addEmployee(greta);
-            employeeBook.addEmployee(arnold);
-            employeeBook.addEmployee(gulnar);
-            employeeBook.addEmployee(nepridumal);
+            if (employeeBook.addEmployee(dmitriy)) {
+                System.out.println("Кандидат " + dmitriy.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + dmitriy.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(sergey)) {
+                System.out.println("Кандидат " + sergey.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + sergey.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(vadim)) {
+                System.out.println("Кандидат " + vadim.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + vadim.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(clavdiy)) {
+                System.out.println("Кандидат " + clavdiy.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + clavdiy.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(antonina)) {
+                System.out.println("Кандидат " + antonina.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + antonina.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(gadya)) {
+                System.out.println("Кандидат " + gadya.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + gadya.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(greta)) {
+                System.out.println("Кандидат " + greta.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + greta.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(arnold)) {
+                System.out.println("Кандидат " + arnold.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + arnold.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(gulnar)) {
+                System.out.println("Кандидат " + gulnar.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + gulnar.getFullName() + " отклонён.");
+            }
+            if (employeeBook.addEmployee(nepridumal)) {
+                System.out.println("Кандидат " + nepridumal.getFullName() + " принят.");
+            } else {
+                System.out.println("Кандидат " + nepridumal.getFullName() + " отклонён.");
+            }
 
             System.out.println("------------------------------------------------------------------------");
             employeeBook.printStuffInfo();

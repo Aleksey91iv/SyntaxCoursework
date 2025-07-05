@@ -48,6 +48,13 @@ public class EmployeeBook {
         return false;
     }
 
+    public void printStuffInfo() {
+        if (employeeCounter == 0) {
+            System.out.println("В штате нет сотрудников.");
+        }
+        Arrays.stream(stuff).filter(Objects::nonNull).forEach((employee) -> System.out.println(employee));
+    }
+
     public Employee findMinFullStuffSalaryEmployee() throws Exception {
         if (employeeCounter <= 0) {
             throw new Exception("В штате нет сотрудников");
@@ -72,12 +79,12 @@ public class EmployeeBook {
         printEmployesFullNames(stuff);
     }
 
-    public void indexFullStuffSalary(int indexPercent) throws Exception {
+    public void indexFullStuffSalary(double indexPercent) throws Exception {
         indexSalary(stuff, indexPercent);
     }
 
     public Employee findMinDepartmentSalaryEmployee(int departamentId) throws Exception {
-        if (Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
+        if (!Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
             throw new Exception(String.format("Отдела №%d не существует.", departamentId));
         }
 
@@ -92,7 +99,7 @@ public class EmployeeBook {
     }
 
     public Employee findMaxDepartmentSalaryEmployee(int departamentId) throws Exception {
-        if (Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
+        if (!Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
             throw new Exception(String.format("Отдела №%d не существует.", departamentId));
         }
 
@@ -107,7 +114,7 @@ public class EmployeeBook {
     }
 
     public double calculateAverageDepartamentSalary(int departamentId) throws Exception {
-        if (Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
+        if (!Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
             throw new Exception(String.format("Отдела №%d не существует.", departamentId));
         }
 
@@ -117,8 +124,8 @@ public class EmployeeBook {
         return calculateAverageSalary(departamentEmployees);
     }
 
-    public void indexDepartamentSalary(int departamentId, int indexPercent) throws Exception {
-        if (Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
+    public void indexDepartamentSalary(int departamentId, double indexPercent) throws Exception {
+        if (!Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
             throw new Exception(String.format("Отдела №%d не существует.", departamentId));
         }
 
@@ -129,7 +136,7 @@ public class EmployeeBook {
     }
 
     public void printDepartamentStuffFullNames(int departamentId) throws Exception {
-        if (Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
+        if (!Arrays.stream(departaments).anyMatch(departament -> departament == departamentId)) {
             throw new Exception(String.format("Отдела №%d не существует.", departamentId));
         }
 
@@ -139,16 +146,16 @@ public class EmployeeBook {
         printEmployesFullNames(departamentEmployees);
     }
 
-    public void printLessSalaryEmployes(Employee[] employes, int salaryTreshold) {
-        Arrays.stream(employes)
+    public void printLessSalaryEmployes(double salaryTreshold) {
+        Arrays.stream(stuff)
             .filter(item -> item != null && item.getSalary() < salaryTreshold)
             .forEach(employee -> System.out.println(employee.getId() + "_"
                     + employee.getFullName() + ": "
                     + employee.getSalary() + " руб."));
     }
 
-    public void printMoreSalaryEmployes(Employee[] employes, int salaryTreshold) {
-        Arrays.stream(employes)
+    public void printMoreSalaryEmployes(double salaryTreshold) {
+        Arrays.stream(stuff)
                 .filter(item -> item != null && item.getSalary() >= salaryTreshold)
                 .forEach(employee -> System.out.println(employee.getId() + "_"
                         + employee.getFullName() + ": "
@@ -179,13 +186,13 @@ public class EmployeeBook {
         Arrays.stream(employes).filter(Objects::nonNull).forEach((employee) -> System.out.println(employee.getFullName()));
     }
 
-    private void indexSalary(Employee[] employes, int indexPercent) throws Exception {
+    private void indexSalary(Employee[] employes,  double indexPercent) throws Exception {
         if (indexPercent < 0) {
             throw new Exception("Процент индексации не долджен быть отрицательным. Проверьте правильность ввода.");
         }
 
         Arrays.stream(employes).filter(Objects::nonNull).forEach((employee) -> {
-            employee.setSalary(employee.getSalary() +  employee.getSalary() * indexPercent);
+            employee.setSalary(employee.getSalary() +  employee.getSalary() * indexPercent * 0.01);
         });
     }
 }

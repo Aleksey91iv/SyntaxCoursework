@@ -5,124 +5,80 @@ import java.util.Arrays;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    final static int staffRestrictions = 10;
-    static Employee[] employes = new Employee[staffRestrictions];
-    static  int[] depertamentsId = {1, 2, 3, 4, 5};
-
     public static void main(String[] args) {
         try {
-            Employee dmitriy = new Employee("Иванов", "Дмитрий", "Петрович", depertamentsId[0], 3000.53);
-            Employee sergey = new Employee("Семёнов", "Сергей", "Васильевич", depertamentsId[0], 5732.00);
-            Employee vadim = new Employee("Фёдоров", "Вадим", "Усович", depertamentsId[1], 6984.20);
-            Employee clavdiy = new Employee("Безухов", "Клавдий", "Варфоломеевич", depertamentsId[1], 5783.00);
-            Employee antonina = new Employee("Ждунова", "Антонина", "Сафроновна", depertamentsId[2], 299.99);
-            Employee gadya = new Employee("Петрова", "Гадя", "Хренович", depertamentsId[2], 15000.00);
-            Employee greta = new Employee("Зеленова", "Гретта", "Туборг", depertamentsId[3], 15.00);
-            Employee arnold = new Employee("Иванов", "Арнольд", "Железнович", depertamentsId[3], 1590.00);
-            Employee gulnar = new Employee("Забродов", "Гульнар", "Заблудович", depertamentsId[4], 12.00);
-            Employee nepridumal = new Employee("Иванов", "Иван", "Иванович", depertamentsId[4], 100000.99);
+            Employee dmitriy = new Employee("Иванов", "Дмитрий", "Петрович", 1, 3000.53);
+            Employee sergey = new Employee("Семёнов", "Сергей", "Васильевич", 1, 5732.00);
+            Employee vadim = new Employee("Фёдоров", "Вадим", "Усович", 2, 6984.20);
+            Employee clavdiy = new Employee("Безухов", "Клавдий", "Варфоломеевич", 2, 5783.00);
+            Employee antonina = new Employee("Ждунова", "Антонина", "Сафроновна", 3, 299.99);
+            Employee gadya = new Employee("Петрова", "Гадя", "Хренович", 3, 15000.00);
+            Employee greta = new Employee("Зеленова", "Гретта", "Туборг", 4, 15.00);
+            Employee arnold = new Employee("Иванов", "Арнольд", "Железнович", 4, 1590.00);
+            Employee gulnar = new Employee("Забродов", "Гульнар", "Заблудович", 5, 12.00);
+            Employee nepridumal = new Employee("Иванов", "Иван", "Иванович", 5, 100000.99);
 
-            employes[0] = dmitriy;
-            employes[1] = sergey;
-            employes[2] = vadim;
-            employes[3] = clavdiy;
-            employes[4] = antonina;
-            employes[5] = gadya;
-            employes[6] = greta;
-            employes[7] = arnold;
-            employes[8] = gulnar;
-            employes[9] = nepridumal;
+            EmployeeBook employeeBook = new EmployeeBook();
 
-            getEmployes();
-            System.out.println("Месячный зарплатный бюджет: " + new DecimalFormat("#0.00").format(calculateMonthStuffSalary(employes)));
-            System.out.println("\nСамый низкооплачиваемый сотрудник:\n" + findMinSalaryEmployee(employes));
-            System.out.println("\nСамый высокооплачиваемый сотрудник:\n" + findMaxSalaryEmployee(employes));
-            System.out.println("\nСредняя зарплата сотрудников: " + new DecimalFormat("#0.00").format(calculateAverageSalary(employes)));
-            System.out.println("\nФИО сотрудников:");
-            printStuffFullNames(employes);
+            employeeBook.addEmployee(dmitriy);
+            employeeBook.addEmployee(sergey);
+            employeeBook.addEmployee(vadim);
+            employeeBook.addEmployee(clavdiy);
+            employeeBook.addEmployee(antonina);
+            employeeBook.addEmployee(gadya);
+            employeeBook.addEmployee(greta);
+            employeeBook.addEmployee(arnold);
+            employeeBook.addEmployee(gulnar);
+            employeeBook.addEmployee(nepridumal);
+
+            System.out.println("------------------------------------------------------------------------");
+            employeeBook.printStuffInfo();
+            System.out.println("------------------------------------------------------------------------");
+
+            System.out.println("Ср. ЗП штата = " + employeeBook.calculateAverageFullStuffSalary());
+            for (int i = 1; i < 6; i++) {
+                System.out.println("Ср. ЗП отдела №" + i + " = " + employeeBook.calculateAverageDepartamentSalary(i));
+            }
+            System.out.println("------------------------------------------------------------------------");
+
+            System.out.println("Макс. ЗП в штате = " + employeeBook.findMaxFullStuffSalaryEmployee());
+            for (int i = 1; i < 6; i++) {
+                System.out.println("Макс. ЗП отдела №" + i + " = " + employeeBook.findMaxDepartmentSalaryEmployee(i));
+            }
+            System.out.println("------------------------------------------------------------------------");
+
+            System.out.println("Мин. ЗП в штате = " + employeeBook.findMinFullStuffSalaryEmployee());
+            for (int i = 1; i < 6; i++) {
+                System.out.println("Мин. ЗП отдела №" + i + " = " + employeeBook.findMinDepartmentSalaryEmployee(i));
+            }
+            System.out.println("Индексация всему штату----------------------------------------------------------------");
+            employeeBook.indexFullStuffSalary(10);
+            employeeBook.printStuffInfo();
+
+            System.out.println("\n Индексация департаменам-----------------------------------------------------------------");
+            employeeBook.indexDepartamentSalary(5, 50);
+            employeeBook.printStuffInfo();
+            System.out.println("------------------------------------------------------------------------");
+
+            employeeBook.printLessSalaryEmployes(300.00);
+            employeeBook.printMoreSalaryEmployes(5000.00);
+
+            if (employeeBook.removeEmployee(7)) {
+                System.out.println("Уволен сотрудник с Id = 7.");
+            } else {
+                System.out.println("Не найден сотрудник с Id = 7.");
+            }
+
+            employeeBook.printFullStuffNames();
+            System.out.println("------------------------------------------------------------------------");
+            for (int i = 1; i < 6; i++) {
+                employeeBook.printDepartamentStuffFullNames(i);
+                System.out.println("------------------------------------------------------------------------");
+            }
+            System.out.println("------------------------------------------------------------------------");
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-    static void getEmployes() {
-        Arrays.stream(employes).forEach((employee -> System.out.println(employee)));
-    }
-
-    static double calculateMonthStuffSalary(Employee[] employes) {
-        return Arrays.stream(employes).mapToDouble(Employee::getSalary).sum();
-    }
-
-    static Employee findMinSalaryEmployee(Employee[] employes) {
-        return Arrays.stream(employes).min(((o1, o2) -> Double.compare(o1.getSalary(), o2.getSalary()))).get();
-    }
-
-    static Employee findMaxSalaryEmployee(Employee[] employes) {
-        return Arrays.stream(employes).max(((o1, o2) -> Double.compare(o1.getSalary(), o2.getSalary()))).get();
-    }
-
-    static double calculateAverageSalary(Employee[] employes) {
-        return calculateMonthStuffSalary(employes) / staffRestrictions;
-    }
-
-    static void printStuffFullNames(Employee[] employes) {
-        Arrays.stream(employes).forEach((employee) -> System.out.println(employee.getFullName()));
-    }
-
-    static void indexSalary(Employee[] employes, int indexPercent) {
-        Arrays.stream(employes).forEach((employee) -> {
-            employee.setSalary(employee.getSalary() +  employee.getSalary() * indexPercent);
-        });
-    }
-
-    static Employee findMinDepartmentSalaryEmployee(int departamentId) {
-        Employee[] departamentEmployees = Arrays.stream(employes)
-            .filter(item -> item.getDepartamentId() == departamentId).toArray(Employee[]::new);
-
-        return findMinSalaryEmployee(departamentEmployees);
-    }
-
-    static Employee findMaxDepartmentSalaryEmployee(int departamentId) {
-        Employee[] departamentEmployees = Arrays.stream(employes)
-            .filter(item -> item.getDepartamentId() == departamentId).toArray(Employee[]::new);
-
-        return findMaxSalaryEmployee(departamentEmployees);
-    }
-
-    static double calculateAverageSalary(int departamentId) {
-        Employee[] departamentEmployees = Arrays.stream(employes)
-            .filter(item -> item.getDepartamentId() == departamentId).toArray(Employee[]::new);
-
-        return calculateAverageSalary(departamentEmployees);
-    }
-
-    static void indexDepartamentSalary(int departamentId, int indexPercent) {
-        Employee[] departamentEmployees = Arrays.stream(employes)
-            .filter(item -> item.getDepartamentId() == departamentId).toArray(Employee[]::new);
-
-        indexSalary(departamentEmployees, indexPercent);
-    }
-
-    static void printDepartamentStuffFullNames(int departamentId) {
-        Employee[] departamentEmployees = Arrays.stream(employes)
-            .filter(item -> item.getDepartamentId() == departamentId).toArray(Employee[]::new);
-
-        printStuffFullNames(departamentEmployees);
-    }
-
-    static void printLessSalaryEmployes(Employee[] employes, int salaryTreshold) {
-        Arrays.stream(employes)
-            .filter(item -> item.getSalary() < salaryTreshold)
-            .forEach(employee -> System.out.println(employee.getId() + "_"
-                    + employee.getFullName() + ": "
-                    + employee.getSalary() + " руб."));
-    }
-
-    static void printMoreSalaryEmployes(Employee[] employes, int salaryTreshold) {
-        Arrays.stream(employes)
-                .filter(item -> item.getSalary() >= salaryTreshold)
-                .forEach(employee -> System.out.println(employee.getId() + "_"
-                        + employee.getFullName() + ": "
-                        + employee.getSalary() + " руб."));
     }
 }
